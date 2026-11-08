@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "a4-tools": {
+      "type": "stdio",
+      "command": "/Users/ga/cs690/cs690-assignment4/.venv/bin/python",
+      "args": [
+        "/Users/ga/cs690/cs690-assignment4/server.py",
+        "--workspace",
+        "runs/terminal/workspace"
+      ],
+      "env": {}
+    }
+  }
+}
