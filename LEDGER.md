@@ -83,3 +83,14 @@ Reviwed: Review the output code
 Checks: Ran python -m agent check-mcp
 Evidence:Check-mcp: All tests passed
 Risk:Did not provide the entire code/repo to claude.ai. Only the necessary files. Because claude doesnt have access to other files in repo, output generated could have been skewed
+
+## My Entries
+Artifact: Remote push failure
+Tool: Claude.ai
+Prompt:git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/ap3478/cs690-assignment4.git'
+Reviewed: Output stated either no commits or the main branch was master instead of main
+Checks: Ran git branch command and output was "Master"
+Evidence: Re-ran git push -u origin master and push was successful
+Risk:
