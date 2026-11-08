@@ -1,0 +1,42 @@
+"""Your MCP server: the same four tools, offered to any MCP host. Part 5 of HANDOUT.md.
+
+YOU WRITE this file. It is short: about 15 lines.
+
+What it must do:
+  1. Create an MCPServer named "a4-tools" and keep it in a module-level variable named mcp.
+  2. Register every function in agent.tools.TOOLS as a tool, with mcp.add_tool(fn).
+     That is the same as putting @mcp.tool() on the function: the function's name becomes
+     the tool's name, its docstring becomes the description, and its parameters become
+     the input schema.
+  3. Only when run as a program (inside `if __name__ == "__main__":`), read one required
+     command-line option, --workspace PATH, call tools.use_workspace(PATH), then
+     mcp.run(transport="stdio").
+
+Importing this file must not start the server: the tests import it and talk to `mcp`
+directly.
+"""
+
+import argparse
+
+from mcp.server import MCPServer
+
+from agent import tools
+
+# The server offers exactly the agent's four tools, in the same order, and nothing more.
+mcp = MCPServer("a4-tools")
+for fn in tools.TOOLS:
+    mcp.add_tool(fn)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Offer the agent's four tools over MCP (stdio).")
+    parser.add_argument("--workspace", required=True, metavar="PATH",
+                        help="the project folder the tools work in")
+    args = parser.parse_args()
+    tools.use_workspace(args.workspace)
+    # stdio: stdout carries the protocol, so nothing else may print to it.
+    mcp.run(transport="stdio")
+
+
+if __name__ == "__main__":
+    main()
